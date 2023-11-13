@@ -6,39 +6,37 @@ echo "Iremos iniciar a instalação da nossa solução"
 
 #Antes de começarmos, certifique-se de que você possui o docker instalado
 
-echo "Antes de começarmos, assegures-se que o docker está instalado"
+echo "Antes de começarmos, assegure-se de que o docker está instalado"
 
-#Você deseja instalar o docker ? (Sim/Nao)
-read -p "Você deseja instalar o docker ? (Sim/Nao):"installDocker
-if["$installDocker" = "Sim"]; then
-
-#instalando o docker
-echo "instalando o docker"
-sudo apt install docker.io
-sleep 10
-echo "Docker instalado com sucesso"
-
+#Você deseja instalar o docker? (Sim/Nao)
+read -p "Você deseja instalar o docker? (Sim/Nao): " installDocker
+if [ "$installDocker" = "Sim" ]; then
+  #instalando o docker
+  echo "Instalando o docker"
+  sudo apt install docker.io
+  sleep 10
+  echo "Docker instalado com sucesso"
 else
-echo "A instalação do docker é essencial para o funcionamento de nossa aplicação"
-echo "A não instalação do docker causará problemas futuros para a solução"
+  echo "A instalação do docker é essencial para o funcionamento de nossa aplicação"
+  echo "A não instalação do docker causará problemas futuros para a solução"
 fi 
 
-#Você deseja iniciar o serviço do Docker ?(Sim/Nao)
-read -p "Você deseja iniciar os serviços do docker ? (Sim/Nao):"StartDocker
-if["$StartDocker" = "Sim"]; then
+#Você deseja iniciar o serviço do Docker? (Sim/Nao)
+read -p "Você deseja iniciar os serviços do docker? (Sim/Nao): " StartDocker
+if [ "$StartDocker" = "Sim" ]; then
   # Iniciando o serviço do Docker...
   echo "Iniciando o serviço do Docker..."
   sudo systemctl start docker
   sudo systemctl enable docker
   echo "Serviço do Docker iniciado com sucesso!"
 else
-  echo "O serviço do Docker precisa ser iniciado. para proximos passos"
+  echo "O serviço do Docker precisa ser iniciado para próximos passos"
   exit 1
 fi
 
 #Você deseja baixar a imagem do MySQL 5.7? (Sim/Nao)
 read -p "Você deseja baixar a imagem do MySQL 5.7? (Sim/Nao): " InstallMySQL
-if [ "$InstallMySQL" = "YES" ]; then
+if [ "$InstallMySQL" = "Sim" ]; then
   # Baixando a imagem do MySQL 5.7...
   echo "Baixando a imagem do MySQL 5.7..."
   sudo docker pull mysql:5.7
@@ -64,10 +62,10 @@ fi
 
 #Você deseja executar o script SQL dentro do container MySQL? (Sim/Nao)
 read -p "Você deseja executar o script SQL dentro do container MySQL? (Sim/Nao): " executarSQL
-if [ "$executarSQL" = "YES" ]; then
+if [ "$executarSQL" = "Sim" ]; then
   # Executando o script SQL dentro do container MySQL...
   echo "Executando o script SQL dentro do container MySQL..."
-  sudo docker exec -i magister mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
+  sudo docker exec -i Alpaca mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
   sleep 15
   echo "Script SQL executado com sucesso!"
 else
@@ -76,15 +74,15 @@ else
   exit 1
 fi
 
-#Você deseja dar permissão de execução ao arquivo java.sh? (YES/NO)
-read -p "Você deseja dar permissão de execução ao arquivo java.sh? (Sim/Nao): " DarPermicao
-if [ "$DarPermicao" = "Sim" ]; then
+#Você deseja dar permissão de execução ao arquivo java.sh? (Sim/Nao)
+read -p "Você deseja dar permissão de execução ao arquivo java.sh? (Sim/Nao): " DarPermissao
+if [ "$DarPermissao" = "Sim" ]; then
   # Dando permissão de execução ao arquivo java.sh...
   echo "Dando permissão de execução ao arquivo java.sh..."
   chmod +x java.sh
   echo "Permissão concedida com sucesso!"
 else
-  echo "A execução do script SQL dentro do container MySQL é crucial para a configuração da Solução Alpaca"
+  echo "A permissão de execução ao arquivo java.sh é crucial para a configuração da Solução Alpaca"
   echo "Execute essa etapa e reinicie o assistente."
   exit 1
 fi
@@ -102,5 +100,5 @@ else
   exit 1
 fi
 
-#Configuração concluída! A solução Alpaca está pronto para uso.
-echo "Configuração concluída! A solução Alpaca está pronto para uso. Aproveite!"
+#Configuração concluída! A solução Alpaca está pronta para uso.
+echo "Configuração concluída! A solução Alpaca está pronta para uso. Aproveite!"
