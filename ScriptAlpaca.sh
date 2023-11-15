@@ -28,11 +28,4 @@ fi
 echo "Para prosseguirmos, iremos iniciar o script do Docker"
 bash ScriptDocker.sh
 
-# Agora, vamos baixar a pasta do projeto usando wget
-echo "Baixando a pasta do projeto usando wget"
-wget -O nome_do_arquivo.zip https://caminho/do/arquivo.zip
-# Substitua "nome_do_arquivo.zip" e "https://caminho/do/arquivo.zip" pelos valores reais
-
-# Adicione qualquer outra lógica necessária para descompactar ou instalar o projeto, se necessário
-
 echo "Script concluído"
