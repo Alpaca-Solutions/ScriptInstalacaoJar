@@ -3,7 +3,7 @@
 # Bem-vindo ao Script de instalação da Alpaca Solutions
 echo "Bem-vindo ao Script de instalação da Alpaca Solutions"
 echo "Para começarmos, iremos atualizar o seu apt"
-sudo apt install && sudo apt upgrade
+sudo apt install && sudo apt update
 sleep 10
 
 # Agora iremos instalar o pacote de instalações
