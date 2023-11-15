@@ -24,8 +24,11 @@ else
   cd ScriptInstalacaoJar-main/ || exit 1
 fi
 
+# Concedendo permissões de execução ao script
+chmod +x ScriptDocker.sh
+
 # Para prosseguirmos, iremos iniciar o script do Docker
 echo "Para prosseguirmos, iremos iniciar o script do Docker"
-bash ScriptDocker.sh
+./ScriptDocker.sh # Executando o script com permissões de execução
 
 echo "Script concluído"
