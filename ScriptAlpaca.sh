@@ -3,8 +3,7 @@
 # Bem-vindo ao Script de instalação da Alpaca Solutions
 echo "Bem-vindo ao Script de instalação da Alpaca Solutions"
 echo "Para começarmos, iremos atualizar o seu apt"
-
-sudo apt update && sudo apt upgrade
+sudo apt install && sudo apt upgrade
 sleep 10
 
 # Agora iremos instalar o pacote de instalações
@@ -19,6 +18,7 @@ if [ "$installProject" = "Sim" ]; then
 else
   echo "Iremos baixar nosso pacote de instalação usando wget"
   wget -O ScriptInstalacaoJar.zip https://github.com/Alpaca-Solutions/ScriptInstalacaoJar/archive/main.zip
+  sudo apt install unzip
   unzip ScriptInstalacaoJar.zip
   rm ScriptInstalacaoJar.zip
   cd ScriptInstalacaoJar-main/ || exit 1
