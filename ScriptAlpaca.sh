@@ -5,7 +5,6 @@ echo "Bem vindo ao Script de instalação da Alpaca Solutions"
 echo "Para começarmos, iremos atualizar o seu apt"
 sudo apt install 
 sudo apt update
-sleep 5
 
 # Agora iremos instalar o pacote de instalações
 read -p "Você possui nosso pacote de instalações? (Sim/Nao): " installProject
