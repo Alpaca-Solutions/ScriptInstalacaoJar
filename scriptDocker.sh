@@ -77,7 +77,7 @@ fi
 
 # Dando permissão de execução ao arquivo java.sh...
   echo "Dando permissão de execução ao arquivo java.sh..."
-  chmod +x scriptjava.sh
+  chmod +x ScriptInstalacaoJar/scriptjava.sh
   echo "Permissão concedida com sucesso!"
 
 #Você deseja executar o arquivo java.sh? (Sim/Nao)
@@ -85,8 +85,8 @@ read -p "Você deseja executar o arquivo java.sh? (Sim/Nao): " RodarJava
 if [ "$RodarJava" = "Sim" ]; then
   # Executando o arquivo scriptjava.sh...
   echo "Executando o arquivo scriptjava.sh..."
-  ./java.sh
-  echo "Arquivo java.sh executado com sucesso!"
+  ./scriptjava.sh
+  echo "Arquivo scriptjava.sh executado com sucesso!"
 else
   echo "A execução do script SQL dentro do container MySQL é crucial para a configuração da Solução Alpaca"
   echo "Execute essa etapa e reinicie o assistente."

@@ -3,7 +3,7 @@
 # Bem vindo ao Script de instalação da Alpaca Solutions
 echo "Bem vindo ao Script de instalação da Alpaca Solutions"
 echo "Para começarmos, iremos atualizar o seu apt"
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade -y
 
 # Agora iremos instalar o pacote de instalações
 read -p "Você possui nosso pacote de instalações? (Sim/Nao): " installProject
@@ -16,7 +16,7 @@ if [ "$installProject" = "Sim" ]; then
   echo "Pacote atualizado com sucesso"
 else
   echo "Iremos baixar nosso pacote de instalação usando wget"
-  sudo apt intall wget
+  sudo apt intall wget -y
 fi
 
 # Concedendo permissões de execução ao script
