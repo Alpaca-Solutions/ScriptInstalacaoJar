@@ -18,10 +18,6 @@ if [ "$installProject" = "Sim" ]; then
 else
   echo "Iremos baixar nosso pacote de instalação usando wget"
   sudo apt intall wget
-  wget -O ScriptInstalacaoJar.zip https://github.com/Alpaca-Solutions/ScriptInstalacaoJar/archive/main.zip
-  sudo apt install unzip
-  unzip ScriptInstalacaoJar.zip
-  rm ScriptInstalacaoJar.zip
   cd ScriptInstalacaoJar-main/ || exit 1
 fi
 

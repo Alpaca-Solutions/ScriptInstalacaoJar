@@ -56,7 +56,8 @@ if [ "$CriarDockerMySQL" = "Sim" ]; then
   sleep 15
   echo "Container MySQL criado e em execução!"
 else
-  echo "A criação e execução do container MySQL são necessárias para a configuração do Magister App. Execute essa etapa e reinicie o assistente."
+  echo "A criação e execução do container MySQL são necessárias para a configuração da Solução Alpaca. 
+  Execute essa etapa e reinicie o assistente."
   exit 1
 fi
 
@@ -74,24 +75,16 @@ else
   exit 1
 fi
 
-#Você deseja dar permissão de execução ao arquivo java.sh? (Sim/Nao)
-read -p "Você deseja dar permissão de execução ao arquivo java.sh? (Sim/Nao): " DarPermissao
-if [ "$DarPermissao" = "Sim" ]; then
-  # Dando permissão de execução ao arquivo java.sh...
+# Dando permissão de execução ao arquivo java.sh...
   echo "Dando permissão de execução ao arquivo java.sh..."
-  chmod +x java.sh
+  chmod +x scriptjava.sh
   echo "Permissão concedida com sucesso!"
-else
-  echo "A permissão de execução ao arquivo java.sh é crucial para a configuração da Solução Alpaca"
-  echo "Execute essa etapa e reinicie o assistente."
-  exit 1
-fi
 
 #Você deseja executar o arquivo java.sh? (Sim/Nao)
 read -p "Você deseja executar o arquivo java.sh? (Sim/Nao): " RodarJava
 if [ "$RodarJava" = "Sim" ]; then
-  # Executando o arquivo java.sh...
-  echo "Executando o arquivo java.sh..."
+  # Executando o arquivo scriptjava.sh...
+  echo "Executando o arquivo scriptjava.sh..."
   ./java.sh
   echo "Arquivo java.sh executado com sucesso!"
 else
