@@ -1,6 +1,7 @@
 create database AlpacaDB;
 use AlpacaDB;
 
+
 create table Endereco(
 idEndereco int primary key auto_increment,
 cep varchar(8),
@@ -8,7 +9,8 @@ rua varchar(50),
 numero varchar(50),
 bairro varchar(50),
 cidade varchar(50),
-estado varchar(50)
+estado varchar(50),
+ativo boolean
 );
 
 create table Empresa(
@@ -16,6 +18,7 @@ idEmpresa int primary key auto_increment,
 nomeFantasia varchar(45),
 razaoSocial varchar(45),
 cnpj varchar(14),
+ativo boolean,
 fk_endereco int,
 constraint fk_endereco foreign key (fk_endereco)
 references Endereco(idEndereco)
@@ -25,6 +28,7 @@ create table Telefone(
 idTelefone int primary key auto_increment,
 numero char(11),
 tipo varchar(45),
+ativo boolean,
 fkEmpresa int,
 constraint fkEmpresa foreign key (fkEmpresa)
 references Empresa(idEmpresa)
@@ -39,8 +43,8 @@ senha varchar(50),
 tipoAcesso varchar(20),
 nivelAcesso varchar(20),
 ativo boolean,
-fkEmpresa int,
-constraint fkEmpresa foreign key (fkEmpresa)
+fkEmpresaUsuario int,
+constraint fkEmpresaUsuario foreign key (fkEmpresaUsuario)
 references Empresa(idEmpresa)
 );
 
@@ -59,9 +63,9 @@ ipMaquina varchar(45),
 sistemaOperacional varchar(45),
 statusMaquina boolean,
 ativo boolean,
-fkEmpresa int,
+fkEmpresaMaquina int,
 fKUnidade int,
-constraint fkEmpresa foreign key (fkEmpresa)
+constraint fkEmpresaMaquina foreign key (fkEmpresaMaquina)
 references Empresa(idEmpresa),
 constraint fkUnidade foreign key (fKUnidade)
 references Unidade(idUnidade)
