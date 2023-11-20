@@ -17,7 +17,6 @@ if [ "$installProject" = "Sim" ]; then
 else
   echo "Iremos baixar nosso pacote de instalação usando wget"
   sudo apt intall wget
-  cd ScriptInstalacaoJar-main/ || exit 1
 fi
 
 # Concedendo permissões de execução ao script
