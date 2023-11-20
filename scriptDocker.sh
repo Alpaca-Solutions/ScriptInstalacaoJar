@@ -66,7 +66,7 @@ read -p "Você deseja executar o script SQL dentro do container MySQL? (Sim/Nao)
 if [ "$executarSQL" = "Sim" ]; then
   # Executando o script SQL dentro do container MySQL...
   echo "Executando o script SQL dentro do container MySQL..."
-  sudo docker exec -i Alpaca mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
+  sudo docker exec -i Alpaca mysql -u root -paluno < /home/ubuntu/Assistentes-app/ScriptAlpacaSolution_v4_20-11.sql
   sleep 15
   echo "Script SQL executado com sucesso!"
 else
