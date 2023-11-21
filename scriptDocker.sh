@@ -19,7 +19,7 @@ if [ "$installDocker" = "Sim" ]; then
 else
   echo "A instalação do docker é essencial para o funcionamento de nossa aplicação"
   echo "A não instalação do docker causará problemas futuros para a solução"
-fi 
+fi
 
 #Você deseja iniciar o serviço do Docker? (Sim/Nao)
 read -p "Você deseja iniciar os serviços do docker? (Sim/Nao): " StartDocker
@@ -66,7 +66,7 @@ read -p "Você deseja executar o script SQL dentro do container MySQL? (Sim/Nao)
 if [ "$executarSQL" = "Sim" ]; then
   # Executando o script SQL dentro do container MySQL...
   echo "Executando o script SQL dentro do container MySQL..."
-  sudo docker exec -i Alpaca mysql -u root -paluno < /home/ubuntu/ScriptInstalacaoJar/ScriptAlpacaSolution_v4_20-11.sql
+  sudo docker exec -i Alpaca mysql -u root -paluno </home/ubuntu/ScriptInstalacaoJar/ScriptAlpacaSolution_v4_20-11.sql
   sleep 15
   echo "Script SQL executado com sucesso!"
 else
@@ -76,22 +76,9 @@ else
 fi
 
 # Dando permissão de execução ao arquivo java.sh...
-  echo "Dando permissão de execução ao arquivo java.sh..."
-  chmod +x ScriptInstalacaoJar/scriptjava.sh
-  echo "Permissão concedida com sucesso!"
-
-#Você deseja executar o arquivo java.sh? (Sim/Nao)
-read -p "Você deseja executar o arquivo java.sh? (Sim/Nao): " RodarJava
-if [ "$RodarJava" = "Sim" ]; then
-  # Executando o arquivo scriptjava.sh...
-  echo "Executando o arquivo scriptjava.sh..."
-  ./scriptjava.sh
-  echo "Arquivo scriptjava.sh executado com sucesso!"
-else
-  echo "A execução do script SQL dentro do container MySQL é crucial para a configuração da Solução Alpaca"
-  echo "Execute essa etapa e reinicie o assistente."
-  exit 1
-fi
+echo "Dando permissão de execução ao arquivo java.sh..."
+chmod +x ScriptInstalacaoJar/scriptjava.sh
+echo "Permissão concedida com sucesso!"
 
 #Configuração concluída! A solução Alpaca está pronta para uso.
 echo "Configuração concluída! A solução Alpaca está pronta para uso. Aproveite!"

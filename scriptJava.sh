@@ -6,62 +6,27 @@ jar_url="https://github.com/Alpaca-Solutions/Back-End-Alpaca-Solutions/raw/main/
 # Nome do arquivo JAR após o download
 jar_nome="v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 
-echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
-sleep 5
+# Nome do container
+container_nome="container-java"
 
-if ! command -v java &> /dev/null || ! java --version | grep -q "openjdk 17"; then
-    echo "Você não possui o Java 17 instalado."
-    echo "Confirme se deseja instalar o Java 17 (Sim/Nao)?"
-    read inst
-    if [ "$inst" == "Sim" ]; then
-        echo "Ok! Você escolheu instalar o Java 17."
-        echo "Adicionando o repositório..."
-        sleep 7
-        sudo add-apt-repository ppa:linuxuprising/java -y
-        clear
-        echo "Atualizando os pacotes... Quase acabando."
-        sleep 7
-        sudo apt update -y
-
-        # Instalação do Java 17
-        echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
-        sudo apt-get install openjdk-17-jdk -y
-        clear
-        echo "Java 17 instalado com sucesso!"
-        echo "Vamos atualizar os pacotes..."
-        sudo apt update && sudo apt upgrade -y
+# Verificar se o container já está em execução
+if [ "$(docker ps -q -f name=$container_nome)" ]; then
+    echo "O container $container_nome já está em execução."
+else
+    # Verificar se o container existe
+    if [ "$(docker ps -aq -f name=$container_nome)" ]; then
+        # Iniciar o container
+        echo "Iniciando o container $container_nome..."
+        docker start $container_nome
     else
-        echo "Você optou por não instalar o Java 17 no momento."
+        # Verificar se a imagem do Java 17 está presente
+        if [[ "$(docker images -q openjdk:17 2> /dev/null)" == "" ]]; then
+            echo "A imagem do Java 17 não está presente. Baixando..."
+            docker pull openjdk:17
+        fi
+
+        # Criar e executar o container
+        echo "Criando e executando o container $container_nome..."
+        docker run -d -v "$(pwd)/$jar_nome:/app.jar" --name $container_nome openjdk:17 java -jar /app.jar
     fi
-else
-    echo "Você já possui o Java 17 instalado!"
-fi
-
-# Verificar se o arquivo JAR já existe
-if [ ! -f "$jar_nome" ]; then
-    echo "Baixando o arquivo JAR..."
-    # Instale o wget se não estiver instalado
-    sudo apt install wget -y
-    # Baixar o arquivo JAR usando wget
-    wget "$jar_url" -O "$jar_nome"
-
-    # Verificar se o download foi bem-sucedido
-    if [ $? -eq 0 ]; then
-        echo "Download do arquivo JAR concluído com sucesso."
-    else
-        echo "Erro ao baixar o arquivo JAR."
-        exit 1
-    fi
-else
-    echo "Arquivo JAR já existe. Pulando o download."
-fi
-
-# Executar o arquivo JAR
-java -jar "$jar_nome"
-
-# Verificar se a execução foi bem-sucedida
-if [ $? -eq 0 ]; then
-    echo "Execução do arquivo JAR bem-sucedida."
-else
-    echo "Erro ao executar o arquivo JAR."
 fi

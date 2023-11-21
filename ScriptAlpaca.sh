@@ -1,9 +1,11 @@
-#Bem vindo ao Script de instalação da Alpaca Solutions
+#!/bin/bash
+
+# Bem vindo ao Script de instalação da Alpaca Solutions
 echo "Bem vindo ao Script de instalação da Alpaca Solutions"
 echo "Para começarmos, iremos atualizar o seu apt"
 sudo apt update && sudo apt upgrade -y
 
-#Verificando se o pacote de instalação está presente
+# Verificando se o pacote de instalação está presente
 read -p "Você possui nosso pacote de instalações? (Sim/Nao): " installProject
 if [ "$installProject" = "Sim" ]; then
   # Atualizando o pacote
@@ -20,9 +22,10 @@ if [ "$installProject" = "Sim" ]; then
 else
   echo "Iremos baixar nosso pacote de instalação usando wget"
   sudo apt install wget -y
+  wget -b https://github.com/Alpaca-Solutions/ScriptInstalacaoJar.git
 fi
 
-#Para prosseguirmos, iremos iniciar o script do Docker
+# Para prosseguirmos, iremos iniciar o script do Docker
 echo "Para prosseguirmos, iremos iniciar o script do Docker"
 if [ -f "ScriptDocker.sh" ]; then
   chmod +x ScriptDocker.sh
