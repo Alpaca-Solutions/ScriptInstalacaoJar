@@ -77,7 +77,7 @@ fi
 
 # Dando permissão de execução ao arquivo java.sh...
 echo "Dando permissão de execução ao arquivo java.sh..."
-chmod +x ScriptInstalacaoJar/scriptjava.sh
+chmod +x scriptjava.sh
 echo "Permissão concedida com sucesso!"
 
 #Configuração concluída! A solução Alpaca está pronta para uso.
