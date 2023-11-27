@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/Alpaca-Solutions/Back-End-Alpaca-Solutions/raw/main/Jar Alpaca Solutions/target/v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
-
+jar_url="https://github.com/Alpaca-Solutions/Jar Alpaca Solutions/target/v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 # Nome do arquivo JAR após o download
 jar_nome="v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 
