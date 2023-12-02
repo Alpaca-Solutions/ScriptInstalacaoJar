@@ -59,7 +59,7 @@ fi
 
 # Dá permissão de execução ao arquivo scriptjava.sh
 echo "Dando permissão de execução ao arquivo scriptjava.sh..."
-chmod +x scriptjava.sh
+chmod +x scriptJava.sh
 echo "Permissão concedida com sucesso!"
 
 # Configuração concluída! A solução Alpaca está pronta para uso.
