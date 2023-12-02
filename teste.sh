@@ -1,66 +1,67 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "Bem-vindo ao assistente de instalação da Alpaca Solutions."
-echo "Iremos iniciar a instalação da nossa solução"
+# URL do arquivo JAR no GitHub
+jar_url="https://github.com/Alpaca-Solutions/Back-End-Alpaca-Solutions/blob/main/v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 
-# Verifica se o Docker está instalado
-if ! command -v docker &> /dev/null; then
-  echo "Docker não está instalado. Por favor, instale o Docker antes de prosseguir."
-  exit 1
-fi
+# Nome do arquivo JAR após o download
+jar_nome="v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 
-# Inicia os serviços do Docker
-read -p "Você deseja iniciar os serviços do Docker? (Sim/Não): " startDocker
-if [ "$startDocker" = "Sim" ]; then
-  echo "Iniciando os serviços do Docker..."
-  sudo systemctl start docker
-  sudo systemctl enable docker
-  echo "Serviços do Docker iniciados com sucesso!"
+echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
+sleep 5
+
+if ! command -v java &> /dev/null || ! java --version | grep -q "openjdk 17"; then
+    echo "Você não possui o Java 17 instalado."
+    echo "Confirme se deseja instalar o Java 17 (S/N)?"
+    read inst
+    if [ "$inst" == "S" ]; then
+        echo "Ok! Você escolheu instalar o Java 17."
+        echo "Adicionando o repositório..."
+        sleep 7
+        sudo add-apt-repository ppa:linuxuprising/java -y
+        clear
+        echo "Atualizando os pacotes... Quase acabando."
+        sleep 7
+        sudo apt update -y
+
+        # Instalação do Java 17
+        echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
+        sudo apt-get install openjdk-17-jdk -y
+        clear
+        echo "Java 17 instalado com sucesso!"
+        echo "Vamos atualizar os pacotes..."
+        sudo apt update && sudo apt upgrade -y
+    else
+        echo "Você optou por não instalar o Java 17 no momento."
+    fi
 else
-  echo "Os serviços do Docker precisam ser iniciados para prosseguir com a instalação."
-  exit 1
+    echo "Você já possui o Java 17 instalado!"
 fi
 
-# Baixa a imagem do MySQL 5.7
-read -p "Você deseja baixar a imagem do MySQL 5.7? (Sim/Não): " installMySQL
-if [ "$installMySQL" = "Sim" ]; then
-  echo "Baixando a imagem do MySQL 5.7..."
-  sudo docker pull mysql:5.7
-  echo "Imagem do MySQL 5.7 baixada com sucesso!"
+# Verificar se o arquivo JAR já existe
+if [ ! -f "$jar_nome" ]; then
+    echo "Baixando o arquivo JAR..."
+    # Instale o wget se não estiver instalado
+    sudo apt install wget -y
+    # Baixar o arquivo JAR usando wget
+    wget "$jar_url" -O "$jar_nome"
+
+    # Verificar se o download foi bem-sucedido
+    if [ $? -eq 0 ]; then
+        echo "Download do arquivo JAR concluído com sucesso."
+    else
+        echo "Erro ao baixar o arquivo JAR."
+        exit 1
+    fi
 else
-  echo "A imagem do MySQL 5.7 é necessária para a configuração da solução Alpaca."
-  echo "Baixe a imagem e reinicie o assistente."
-  exit 1
+    echo "Arquivo JAR já existe. Pulando o download."
 fi
 
-# Cria e executa o container MySQL
-read -p "Você deseja criar e executar o container MySQL? (Sim/Não): " createMySQLContainer
-if [ "$createMySQLContainer" = "Sim" ]; then
-  echo "Criando e executando o container MySQL..."
-  sudo docker run -d -p 3306:3306 --name Alpaca -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7
-  echo "Container MySQL criado e em execução!"
+# Executar o arquivo JAR
+java -jar "$jar_nome"
+
+# Verificar se a execução foi bem-sucedida
+if [ $? -eq 0 ]; then
+    echo "Execução do arquivo JAR bem-sucedida."
 else
-  echo "A criação e execução do container MySQL são necessárias para a configuração da Solução Alpaca."
-  echo "Execute essa etapa e reinicie o assistente."
-  exit 1
+    echo "Erro ao executar o arquivo JAR."
 fi
-
-# Executa o script SQL dentro do container MySQL
-read -p "Você deseja executar o script SQL dentro do container MySQL? (Sim/Não): " executeSQL
-if [ "$executeSQL" = "Sim" ]; then
-  echo "Executando o script SQL dentro do container MySQL..."
-  sudo docker exec -i Alpaca mysql -u root -paluno < /home/ubuntu/ScriptInstalacaoJar/ScriptAlpacaSolution_v4_20-11.sql
-  echo "Script SQL executado com sucesso!"
-else
-  echo "A execução do script SQL dentro do container MySQL é crucial para a configuração da Solução Alpaca."
-  echo "Execute essa etapa e reinicie o assistente."
-  exit 1
-fi
-
-# Dá permissão de execução ao arquivo scriptjava.sh
-echo "Dando permissão de execução ao arquivo scriptjava.sh..."
-chmod +x scriptJava.sh
-echo "Permissão concedida com sucesso!"
-
-# Configuração concluída! A solução Alpaca está pronta para uso.
-echo "Configuração concluída! A solução Alpaca está pronta para uso. Aproveite!"
