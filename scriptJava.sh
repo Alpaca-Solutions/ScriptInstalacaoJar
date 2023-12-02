@@ -1,41 +1,13 @@
 #!/bin/bash
 
+# Nome do contêiner Docker
+container_nome="java-app"
+
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/Alpaca-Solutions/Back-End-Alpaca-Solutions/raw/main/Jar Alpaca Solutions/target/v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/Alpaca-Solutions/Back-End-Alpaca-Solutions/raw/main/Jar%20Alpaca%20Solutions/target/v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
 jar_nome="v2-jar-alpaca-solutions-1.0-jar-with-dependencies.jar"
-
-echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
-sleep 5
-
-if ! command -v java &> /dev/null || ! java --version | grep -q "openjdk 17"; then
-    echo "Você não possui o Java 17 instalado."
-    echo "Confirme se deseja instalar o Java 17 (S/N)?"
-    read inst
-    if [ "$inst" == "S" ]; then
-        echo "Ok! Você escolheu instalar o Java 17."
-        echo "Adicionando o repositório..."
-        sleep 7
-        sudo add-apt-repository ppa:linuxuprising/java -y
-        clear
-        echo "Atualizando os pacotes... Quase acabando."
-        sleep 7
-        sudo apt update -y
-
-        # Instalação do Java 17
-        echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
-        sudo apt-get install openjdk-17-jdk -y
-        clear
-        echo "Java 17 instalado com sucesso!"
-        echo "Vamos atualizar os pacotes..."
-        sudo apt update && sudo apt upgrade -y
-    else
-        echo "Você optou por não instalar o Java 17 no momento."
-    fi
-else
-    echo "Você já possui o Java 17 instalado!"
-fi
 
 # Verificar se o arquivo JAR já existe
 if [ ! -f "$jar_nome" ]; then
@@ -56,12 +28,31 @@ else
     echo "Arquivo JAR já existe. Pulando o download."
 fi
 
-# Executar o arquivo JAR
-java -jar "$jar_nome"
+# Criar o arquivo Dockerfile
+echo "Criando o arquivo Dockerfile..."
+echo "FROM openjdk:17" > Dockerfile
+echo "COPY $jar_nome /app.jar" >> Dockerfile
+echo "CMD java -jar /app.jar" >> Dockerfile
+
+# Construir a imagem Docker
+echo "Construindo a imagem Docker..."
+sudo docker build -t "$container_nome" .
+
+# Verificar se a construção da imagem foi bem-sucedida
+if [ $? -eq 0 ]; then
+    echo "Construção da imagem Docker concluída com sucesso."
+else
+    echo "Erro ao construir a imagem Docker."
+    exit 1
+fi
+
+# Executar o contêiner Docker
+echo "Executando o contêiner Docker..."
+sudo docker run --rm -it "$container_nome"
 
 # Verificar se a execução foi bem-sucedida
 if [ $? -eq 0 ]; then
-    echo "Execução do arquivo JAR bem-sucedida."
+    echo "Execução do contêiner Docker bem-sucedida."
 else
-    echo "Erro ao executar o arquivo JAR."
+    echo "Erro ao executar o contêiner Docker."
 fi
