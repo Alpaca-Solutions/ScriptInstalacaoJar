@@ -80,5 +80,7 @@ echo "Dando permissão de execução ao arquivo java.sh..."
 chmod +x scriptJava.sh
 echo "Permissão concedida com sucesso!"
 
-#Configuração concluída! A solução Alpaca está pronta para uso.
-echo "Configuração concluída! A solução Alpaca está pronta para uso. Aproveite!"
+#Executar o arquivo java.sh
+echo "Executando o arquivo java.sh..."
+./scriptJava.sh
+echo "Arquivo java.sh executado com sucesso!
