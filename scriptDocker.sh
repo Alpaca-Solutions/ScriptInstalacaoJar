@@ -4,7 +4,12 @@
 echo "Bem vindo ao assistente de instalação da Alpaca solutions."
 echo "Iremos iniciar a instalação da nossa solução"
 
-#Antes de começarmos, certifique-se de que você possui o docker instalado
+#Antes de começarmos, iremos atualizar os pacotes.
+sudo apt update && sudo apt upgrade -y
+clear
+echo "atualização concluida"
+
+#certifique-se de que você possui o docker instalado
 
 echo "Antes de começarmos, assegure-se de que o docker está instalado"
 
